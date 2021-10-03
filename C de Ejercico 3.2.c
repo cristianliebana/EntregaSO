@@ -30,37 +30,24 @@ int main(int argc, char **argv)
 				mysql_errno(conn), mysql_error(conn));
 		exit (1);
 	}
-	// consulta SQL para obtener una tabla con todos los datos
-	// de la base de datos
+
 	err=mysql_query (conn, "SELECT * FROM Partidas");
 	if (err!=0) {
 		printf ("Error al consultar datos de la base %u %s\n",
-				mysql_errno(conn), mysql_error(conn));
+		mysql_errno(conn), mysql_error(conn));
 		exit (1);
 	}
-	//recogemos el resultado de la consulta. El resultado de la
-	//consulta se devuelve en una variable del tipo puntero a
-	//MYSQL_RES tal y como hemos declarado anteriormente.
-	//Se trata de una tabla virtual en memoria que es la copia
-	//de la tabla real en disco.
+
 	resultado = mysql_store_result (conn);
-	// El resultado es una estructura matricial en memoria
-	// en la que cada fila contiene los datos de una persona.
-	
-	// Ahora obtenemos la primera fila que se almacena en una
-	// variable de tipo MYSQL_ROW
+
 	row = mysql_fetch_row (resultado);
-	// En una fila hay tantas columnas como datos tiene una
-	// persona. En nuestro caso hay tres columnas: dni(row[0]),
-	// nombre(row[1]) y edad (row[2]).
+
 	if (row == NULL)
 		printf ("No se han obtenido datos en la consulta\n");
 	else
 		while (row !=NULL) {
-			// la columna 2 contiene una palabra que es la edad
-			// la convertimos a entero 
+
 			fecha = atoi (row[2]);
-			// las columnas 0 y 1 contienen DNI y nombre 
 			printf ("Nombre: %s, password: %s \n", row[0], row[1]);
 			// obtenemos la siguiente fila
 			row = mysql_fetch_row (resultado);
@@ -71,9 +58,8 @@ int main(int argc, char **argv)
 		if (row == NULL)
 			printf ("No se han obtenido datos en la consulta\n");
 		else
-			// El resultado debe ser una matriz con una sola fila
-			// y una columna que contiene el nombre
-			printf ("Nombre de la persona: %s\n", row[0] );
+
+			printf ("Numero de partidas en febrero: %d\n", row[2] );
 		// cerrar la conexion con el servidor MYSQL 
 		mysql_close (conn);
 		exit(0);
