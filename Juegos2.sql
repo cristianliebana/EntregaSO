@@ -35,15 +35,8 @@ INSERT INTO Partidas(id,fecha,hora,duracion,ganador) VALUES(2,05,'18:00',24,'Jua
 INSERT INTO Partidas(id,fecha,hora,duracion,ganador) VALUES(3,10,'19:00',30,'Juan');
 
 
-
-SELECT ganador, COUNT( ganador ) AS total
-FROM  Partidas
-GROUP BY ganador
-ORDER BY total DESC 
-
-
 SELECT COUNT(*) FROM Partidas WHERE fecha = 02;
 
 
 
-SELECT COUNT (*) FROM Partidas WHERE nombre("Juan") AND puntos >=30;
+
